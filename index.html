@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Main website</title>
+
+    <style>
+      * { box-sizing: border-box; }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        -webkit-font-smoothing: antialiased;
+        color: #fff;
+        background-color: #282c34;
+        text-align: center;
+        min-height: 100vh;
+        margin: 0;
+      }
+
+      .flex-center {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .mt-0 { margin-top: 0; }
+      .mb-xl { margin-bottom: 30px; }
+      .mb-xxl { margin-bottom: 42px; }
+
+      iframe {
+        display: block;
+        margin: 0 auto;
+        height: 180px;
+        width: 80%;
+        border: 1px dotted #d5d5d4;
+        border-radius: 5px;
+        padding: 15px;
+      }
+    </style>
+  </head>
+
+  <body class="flex-center">
+    <h2 class="mt-0 mb-xl">Main website</h2>
+    <p class="mb-xxl">The current counter value is: <strong id="counter">0</strong>.</p>
+
+    <iframe id="widget" src="./widget.html"></iframe>
+  </body>
+
+  <script>
+      const counter = document.getElementById('counter');
+
+      function isWidgetMessage(e) {
+          return e.data.event && e.data.event.indexOf('widget') === 0;
+      }
+
+      window.addEventListener('message', function(e) {
+          if ( !isWidgetMessage(e) ) { return; }
+
+          switch (e.data.event) {
+            case 'widget.increment':
+                counter.innerText = parseInt(counter.innerText) + 1;
+                break;
+            case 'widget.decrement':
+                counter.innerText = parseInt(counter.innerText) - 1;
+                break;
+          }
+      });
+  </script>
+</html>

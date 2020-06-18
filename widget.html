@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Widget website</title>
+
+    <style>
+      * { box-sizing: border-box; }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        -webkit-font-smoothing: antialiased;
+        color: #fff;
+        background-color: #282c34;
+        text-align: center;
+      }
+
+      .mb-xl { margin-bottom: 30px; }
+
+      button {
+        display: inline-block;
+        cursor: pointer;
+        color: #ffffff;
+        border: none;
+        padding: 10px 15px;
+        box-shadow: rgba(0, 0, 0, 0.4) 0px 0.2em 0.4em;
+        outline: none;
+      }
+
+      button#increment { background-color: #2a5298; }
+      button#decrement { background-color: #982a2a }
+    </style>
+  </head>
+  <body>
+    <h2 class="mb-xl">Widget website</h2>
+    <button id="increment">Increment counter</button>
+    <button id="decrement">Decrement counter</button>
+  </body>
+
+  <script>
+    function sendMessage(message) {
+        if ( !window.parent || !window.parent.postMessage ) { return; }
+        window.parent.postMessage({
+            event: `widget.${message}`
+        }, '*');
+    }
+
+    document.getElementById('increment').addEventListener('click', function() {
+        sendMessage('increment');
+    });
+
+    document.getElementById('decrement').addEventListener('click', function() {
+        sendMessage('decrement');
+    });
+  </script>
+</html>
